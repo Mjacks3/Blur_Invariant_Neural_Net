@@ -78,11 +78,11 @@ for epoch in range(502):
             if len(file_pieces) == 5: # Matching Pair 
                 labels.append(0) #0 is true 
 
-                pair_a_file_name = ("data/unblurred_lfw/lfw_blur_"+ file_pieces[2] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
+                pair_a_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[2] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
                 im_a = Image.open(pair_a_file_name)
                 tensor_a  =  transform(im_a)
 
-                pair_b_file_name = ("data/unblurred_lfw/lfw_blur_"+ file_pieces[4] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[3])) +file_pieces[3]+".jpg"  )
+                pair_b_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[4] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[3])) +file_pieces[3]+".jpg"  )
                 im_b = Image.open(pair_b_file_name)
                 tensor_b  =  transform(im_b)
 
@@ -96,11 +96,11 @@ for epoch in range(502):
                 labels.append(1) #1 is false 
 
 
-                pair_a_file_name = ("data/unblurred_lfw/lfw_blur_"+ file_pieces[2] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
+                pair_a_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[2] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
                 im_a = Image.open(pair_a_file_name)
                 tensor_a  =  transform(im_a)
 
-                pair_b_file_name = ("data/unblurred_lfw/lfw_blur_"+ file_pieces[5] +"/"+file_pieces[3]+"/"+file_pieces[3]+ "_"+  "0"*(4 - len(file_pieces[4])) +file_pieces[4]+".jpg"  )
+                pair_b_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[5] +"/"+file_pieces[3]+"/"+file_pieces[3]+ "_"+  "0"*(4 - len(file_pieces[4])) +file_pieces[4]+".jpg"  )
                 im_b = Image.open(pair_b_file_name)
                 tensor_b  =  transform(im_b)
 
