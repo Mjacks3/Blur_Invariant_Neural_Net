@@ -10,6 +10,7 @@ from PIL import Image
 from scipy.spatial import distance
 import numpy as np
 
+level_of_blur = "0"
 
 class ContrastiveLoss(torch.nn.Module):
     """
@@ -56,7 +57,7 @@ criterion = ContrastiveLoss()
 optimizer = optim.Adam(resnet.parameters(),lr = 0.0005)
 
 
-for epoch in range(502): 
+for epoch in range(1002): 
     batch_size = 64
     #print("Running Epoch " + str(epoch))
     
@@ -78,11 +79,13 @@ for epoch in range(502):
             if len(file_pieces) == 5: # Matching Pair 
                 labels.append(0) #0 is true 
 
-                pair_a_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[2] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
+                
+
+                pair_a_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ level_of_blur +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
                 im_a = Image.open(pair_a_file_name)
                 tensor_a  =  transform(im_a)
 
-                pair_b_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[4] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[3])) +file_pieces[3]+".jpg"  )
+                pair_b_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ level_of_blur +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[3])) +file_pieces[3]+".jpg"  )
                 im_b = Image.open(pair_b_file_name)
                 tensor_b  =  transform(im_b)
 
@@ -96,13 +99,14 @@ for epoch in range(502):
                 labels.append(1) #1 is false 
 
 
-                pair_a_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[2] +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
+                pair_a_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ level_of_blur +"/"+file_pieces[0]+"/"+file_pieces[0]+ "_"+  "0"*(4 - len(file_pieces[1])) +file_pieces[1]+".jpg"  )
                 im_a = Image.open(pair_a_file_name)
                 tensor_a  =  transform(im_a)
 
-                pair_b_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ file_pieces[5] +"/"+file_pieces[3]+"/"+file_pieces[3]+ "_"+  "0"*(4 - len(file_pieces[4])) +file_pieces[4]+".jpg"  )
+                pair_b_file_name = ("data/v2_blurred_lfw/lfw_blur_"+ level_of_blur +"/"+file_pieces[3]+"/"+file_pieces[3]+ "_"+  "0"*(4 - len(file_pieces[4])) +file_pieces[4]+".jpg"  )
                 im_b = Image.open(pair_b_file_name)
                 tensor_b  =  transform(im_b)
+
 
                 input_pair_a.append(tensor_a)
                 input_pair_b.append(tensor_b)
@@ -125,7 +129,7 @@ for epoch in range(502):
         optimizer.step()
     
         
-    if epoch == 0 or epoch % 25 == 0: 
+    if epoch == 0 or epoch % 100 == 0: 
         print("Running Epoch " + str(epoch))
 
-        torch.save(resnet.state_dict(), 'trained_models/casia/demo'+ str(epoch) +'.pth')
+        torch.save(resnet.state_dict(), 'trained_models/casia_level_'+level_of_blur+'/demo'+ str(epoch) +'.pth')
